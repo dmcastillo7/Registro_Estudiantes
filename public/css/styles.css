@@ -1,0 +1,48 @@
+/* Estilos básicos para estudiantes */
+
+.approved {
+    background-color: #d4ffd4 !important;
+}
+
+.failed {
+    background-color: #ffd4d4 !important;
+}
+
+/* Colores para los estados */
+.bg-success {
+    background-color: green !important;
+}
+
+.bg-warning {
+    background-color: orange !important;
+    color: black !important;
+}
+
+.bg-danger {
+    background-color: red !important;
+}
+
+/* Efectos simples */
+.card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.btn {
+    border-radius: 5px;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f5f5f5;
+}
+
+/* Responsive básico */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .card-body {
+        padding: 15px;
+    }
+}

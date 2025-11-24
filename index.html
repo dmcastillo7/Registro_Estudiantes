@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Estudiantes</title>
+    <link href="public/vendor/bootstrap-5.3.8-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="public/vendor/sweetalert2.css" rel="stylesheet">
+    <link rel="stylesheet" href="public/css/styles.css">
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-dark bg-primary">
+        <div class="container">
+            <span class="navbar-brand">Sistema Estudiantil - Grupo 3</span>
+        </div>
+    </nav>
+
+    <div class="container my-4">
+        <!-- Formulario -->
+        <div class="card mb-4">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0">Registro de Estudiantes</h5>
+            </div>
+            <div class="card-body">
+                <form id="studentForm" class="row g-3 align-items-end">
+                    <div class="col-md-4">
+                        <label class="form-label">Nombre Completo</label>
+                        <input type="text" class="form-control" id="nombre" placeholder="Ej: Juan Pérez">
+                        <div class="text-danger small" id="nombreError" style="display: none;"></div>
+                    </div>
+                    
+                    <div class="col-md-2">
+                        <label class="form-label">Edad</label>
+                        <input type="number" class="form-control" id="edad" placeholder="15-60">
+                        <div class="text-danger small" id="edadError" style="display: none;"></div>
+                    </div>
+                    
+                    <div class="col-md-2">
+                        <label class="form-label">Nota (0-20)</label>
+                        <input type="number" class="form-control" id="nota" step="0.1" placeholder="0-20">
+                        <div class="text-danger small" id="notaError" style="display: none;"></div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <button type="submit" class="btn btn-success w-100">
+                            Agregar Estudiante
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <hr>
+            <div class="card-header bg-light text-primary d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Lista de Estudiantes Registrados</h5>
+                <div>
+                    <span class="badge bg-light text-dark" id="contadorEstudiantes">0 estudiantes</span>
+                    <button id="btnLimpiar" class="btn btn-danger btn-sm ms-2">
+                        Limpiar Todo
+                    </button>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped mb-0">
+                        <thead class="table-primary">
+                            <tr>
+                                <th width="5%">#</th>
+                                <th width="35%">Nombre</th>
+                                <th width="10%">Edad</th>
+                                <th width="15%">Nota</th>
+                                <th width="15%">Estado</th>
+                                <th width="20%">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentsTable">
+                            <tr>
+                                <td colspan="6" class="text-center text-muted py-4">
+                                    No hay estudiantes registrados.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Estadísticas -->
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0">Estadísticas del Grupo</h5>
+            </div>
+            <div class="card-body">
+                <div class="row text-center">
+                    <div class="col-md-3 col-6 mb-3">
+                        <div class="stats-card card border-primary h-100">
+                            <div class="card-body">
+                                <h6 class="card-title text-muted">Total Estudiantes</h6>
+                                <h2 id="totalEstudiantes" class="text-primary mb-0">0</h2>
+                                <small class="text-muted">registrados</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6 mb-3">
+                        <div class="stats-card card border-success h-100">
+                            <div class="card-body">
+                                <h6 class="card-title text-muted">Promedio General</h6>
+                                <h2 id="promedioNotas" class="text-success mb-0">0.00</h2>
+                                <small class="text-muted">puntos</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6 mb-3">
+                        <div class="stats-card card border-success h-100">
+                            <div class="card-body">
+                                <h6 class="card-title text-muted">Aprobados</h6>
+                                <h2 id="totalAprobados" class="text-success mb-0">0</h2>
+                                <small class="text-muted">(≥14 puntos)</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6 mb-3">
+                        <div class="stats-card card border-danger h-100">
+                            <div class="card-body">
+                                <h6 class="card-title text-muted">Reprobados</h6>
+                                <h2 id="totalReprobados" class="text-danger mb-0">0</h2>
+                                <small class="text-muted">(<10 puntos)</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="text-center mt-3">
+                    <button id="btnReporte" class="btn btn-primary btn-lg">
+                        Generar Reporte Completo
+                    </button>
+                </div>
+                
+                <div id="reporteAlert" class="alert mt-3" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="public/vendor/bootstrap.bundle.min.js"></script>
+    <script src="public/vendor/sweetalert2.all.min.js"></script>
+</body>
+</html>
