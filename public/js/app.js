@@ -7,6 +7,8 @@ document.addEventListener('DOMContentLoaded', function() {
         agregarEstudiante();
     });
 
+    // Limpiar
+    document.getElementById('btnLimpiar').addEventListener('click', limpiarLista);
 });
 
 function agregarEstudiante() {
@@ -14,6 +16,28 @@ function agregarEstudiante() {
     const nombre = document.getElementById('nombre').value.trim();
     const edad = parseInt(document.getElementById('edad').value);
     const nota = parseFloat(document.getElementById('nota').value);
+
+    // Validaciones con if
+    if (!nombre) {
+        mostrarError('nombreError', 'El nombre es obligatorio');
+        return;
+    } else {
+        ocultarError('nombreError');
+    }
+
+    if (!edad || edad < 15 || edad > 60) {
+        mostrarError('edadError', 'Edad entre 15-60 años');
+        return;
+    } else {
+        ocultarError('edadError');
+    }
+
+    if (!nota || nota < 0 || nota > 20) {
+        mostrarError('notaError', 'Nota entre 0-20');
+        return;
+    } else {
+        ocultarError('notaError');
+    }
 
     // Determinar estado con if-else
     let estado;
@@ -39,6 +63,7 @@ function agregarEstudiante() {
 
     // Actualizar la vista
     actualizarTabla();
+    limpiarFormulario();
 
     // Mensaje de éxito
     Swal.fire('Exito', 'Estudiante agregado correctamente', 'success');
@@ -90,5 +115,49 @@ function obtenerColorEstado(estado) {
         return 'bg-warning';
     } else {
         return 'bg-danger';
-    }
+    }
+}
+
+function eliminarEstudiante(id) {
+    // Buscar estudiante con for
+    for (let i = 0; i < estudiantes.length; i++) {
+        if (estudiantes[i].id === id) {
+            estudiantes.splice(i, 1);
+            break;
+        }
+    }
+    
+    actualizarTabla();
+    Swal.fire('Exito', 'Estudiante eliminado', 'success');
+}
+
+function limpiarLista() {
+    if (estudiantes.length === 0) {
+        Swal.fire('Advertencia', 'La lista ya está vacía', 'warning');
+        return;
+    }
+
+    if (confirm('¿Borrar todos los estudiantes?')) {
+        estudiantes = [];
+        actualizarTabla();
+        Swal.fire('Exito', 'Lista limpiada', 'success');
+    }
+}
+
+function limpiarFormulario() {
+    document.getElementById('studentForm').reset();
+    ocultarError('nombreError');
+    ocultarError('edadError');
+    ocultarError('notaError');
+}
+
+function mostrarError(elementoId, mensaje) {
+    const elemento = document.getElementById(elementoId);
+    elemento.textContent = mensaje;
+    elemento.style.display = 'block';
+}
+
+function ocultarError(elementoId) {
+    const elemento = document.getElementById(elementoId);
+    elemento.style.display = 'none';
 }
